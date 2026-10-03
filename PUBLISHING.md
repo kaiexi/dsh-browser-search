@@ -1,21 +1,35 @@
 # Publishing
 
-Everything needed to publish is in place; two placeholders and two missing tools are not.
+## Status
+
+- ✅ Repository URLs filled in (`kaiexi/dsh-browser-search`).
+- ✅ git installed (2.55.0.5 via winget).
+- ✅ GitHub repository created and pushed — <https://github.com/kaiexi/dsh-browser-search>.
+- ⬜ npm: not logged in yet (`npm whoami` reports `ENEEDAUTH`).
 
 ## Pre-flight
 
-- [ ] **Replace the placeholder repository URLs** in `package.json` — `repository.url`, `bugs.url` and
-      `homepage` all contain `REPLACE_WITH_YOUR_ACCOUNT`. They are metadata only (nothing breaks if they
-      are wrong), but they end up on the npm page and in `npm repo`.
+- [ ] **Log in to npm** — `npm login`, or set a token:
+      `npm config set //registry.npmjs.org/:_authToken=<token>`.
 - [ ] **Pick the version.** `0.1.0` is a reasonable first release; bump with
-      `npm version patch|minor|major` once the repo exists (it needs git for the tag).
-- [ ] **Install git** — it is not on this machine (`git --version` fails), so `git init`, `npm version`
-      tagging and pushing to GitHub cannot run yet. `winget install --id Git.Git -e` or
-      <https://git-scm.com/download/win>.
-- [ ] **Log in to npm** — `npm whoami` currently fails with `ENEEDAUTH`.
-      Run `npm login`, or set a token: `npm config set //registry.npmjs.org/:_authToken=<token>`.
+      `npm version patch|minor|major` (this also creates a git tag).
 - [ ] **Confirm the package name is still free** — `dsh-browser-search` returned 404 (available) when
       checked. Re-check with `npm view dsh-browser-search` (a 404 means still free).
+
+### Git and the system proxy
+
+Git does **not** read the Windows system proxy, so on a machine whose GitHub access depends on one, a
+direct `git push` fails with `Recv failure: Connection was reset` even though browsers reach GitHub
+fine. Point git at the proxy — repo-local is enough, and keeps it out of `.git/config`'s committed
+neighbours:
+
+```powershell
+git config http.proxy http://127.0.0.1:<port>
+git config https.proxy http://127.0.0.1:<port>
+```
+
+Read the current value from `HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings`
+(`ProxyServer`). If the proxy is later turned off, unset these or git in this repo will fail to connect.
 
 ## Verify the tarball
 
@@ -47,18 +61,17 @@ Unscoped packages publish public by default, so no `--access` flag is needed.
 
 ## Publish to GitHub
 
+Already done for the initial commit; for later changes:
+
 ```powershell
-git init
 git add .
-git commit -m "dsh-browser-search: browser_search tool for DeepSeek Harness"
-git branch -M main
-git remote add origin https://github.com/<account>/dsh-browser-search.git
-git push -u origin main
+git commit -m "<what changed>"
+git push
 ```
 
-The `.gitignore` already excludes `node_modules/` (the dev shim), `*.tgz`, editor directories and the
-runtime status file the plugin writes during local runs. Check `git status` before the first commit: if
-`node_modules` appears, the shim was built in the wrong place.
+The `.gitignore` excludes `node_modules/` (the dev shim), `*.tgz`, editor directories and the runtime
+status file the plugin writes during local runs. Check `git status` before the first commit of a fresh
+clone: if `node_modules` appears, the shim was built in the wrong place.
 
 ## After publishing
 
