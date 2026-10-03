@@ -5,9 +5,12 @@
 - ✅ Repository URLs filled in (`kaiexi/dsh-browser-search`).
 - ✅ git installed (2.55.0.5 via winget).
 - ✅ GitHub repository created and pushed — <https://github.com/kaiexi/dsh-browser-search>.
-- ⬜ npm: not logged in yet (`npm whoami` reports `ENEEDAUTH`).
+- ❌ **npm publishing: decided against.** The distribution channel is GitHub only, so the package is
+  intentionally absent from the registry and `README.md` says so. No npm credential was ever stored on
+  the build machine (no user-level `.npmrc`). The instructions below are kept in case that changes —
+  they are **not** a pending task.
 
-## Pre-flight
+## Pre-flight (only if you decide to publish to npm)
 
 - [ ] **Log in to npm** — `npm login`, or set a token:
       `npm config set //registry.npmjs.org/:_authToken=<token>`.
@@ -15,6 +18,8 @@
       `npm version patch|minor|major` (this also creates a git tag).
 - [ ] **Confirm the package name is still free** — `dsh-browser-search` returned 404 (available) when
       checked. Re-check with `npm view dsh-browser-search` (a 404 means still free).
+- [ ] **Un-mark it in `README.md`** — replace the "From npm — not published" section with real install
+      instructions, otherwise the README will contradict the registry.
 
 ### Git and the system proxy
 

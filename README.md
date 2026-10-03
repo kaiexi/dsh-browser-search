@@ -25,14 +25,14 @@ machine across several engines. No API key, no third-party npm dependency, no br
 
 ## Install
 
-### From npm
+### From a checkout
 
 ```powershell
-# inside your DSH profile directory, e.g. %DSH_HOME%\profiles\desktop
-npm install dsh-browser-search
+node scripts/install-to-profile.mjs     # copies the runtime files into the profile's node_modules
 ```
 
-Then add `"dsh-browser-search"` to `dsh.profile.bundles` in that profile's `package.json`:
+Then add `"dsh-browser-search"` to `dsh.profile.bundles` in that profile's `package.json`
+(`%DSH_HOME%\profiles\<profile>\package.json`):
 
 ```json
 "dsh": { "profile": { "bundles": ["@deepseek-ai/dsh-base", "@deepseek-ai/dsh-web-app", "dsh-browser-search"] } }
@@ -47,15 +47,21 @@ restarting DSH. On success the plugin writes `%DSH_HOME%\dsh-browser-search.stat
 
 The `pid` should belong to a running `DeepSeek Harness.exe`.
 
-### From a checkout
-
-```powershell
-node scripts/install-to-profile.mjs     # copies the runtime files into the profile's node_modules
-```
-
 > **Layout note.** The installer **copies** rather than symlinks. A checkout keeps its own
 > `node_modules/@deepseek-ai` dev shim (see Development); a symlink would let that shim shadow the
 > installation's own `@deepseek-ai` packages, risking two live copies of `dsh-tools` in one process.
+
+### From npm — not published
+
+This package is **not on the npm registry**; the maintainer chose to distribute it via GitHub only. The
+usual flow would be:
+
+```powershell
+# inside your DSH profile directory
+npm install dsh-browser-search
+```
+
+`PUBLISHING.md` documents how to change that decision. Until then, install from a checkout as above.
 
 ## Use
 
