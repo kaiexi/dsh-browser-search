@@ -1,0 +1,62 @@
+{
+  "name": "dsh-browser-search",
+  "version": "0.1.0",
+  "description": "DeepSeek Harness plugin: a browser_search tool that drives a real local Edge/Chromium instance over CDP, across Bing, Baidu, Google and Yandex.",
+  "license": "MIT",
+  "author": "本地浏览器部署大肥鱼搜索",
+  "type": "module",
+  "main": "index.js",
+  "bin": {
+    "dsh-browser-search": "bin/cli.js"
+  },
+  "exports": {
+    ".": "./index.js",
+    "./cordis.patch.yml": "./cordis.patch.yml",
+    "./package.json": "./package.json"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "keywords": [
+    "dsh",
+    "deepseek-harness",
+    "cordis",
+    "cordis-plugin",
+    "plugin",
+    "search",
+    "web-search",
+    "browser-automation",
+    "cdp",
+    "chrome-devtools-protocol",
+    "bing",
+    "baidu",
+    "google",
+    "yandex"
+  ],
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  },
+  "files": [
+    "index.js",
+    "lib",
+    "bin",
+    "cordis.patch.yml",
+    "README.md"
+  ],
+  "scripts": {
+    "dev:link": "node scripts/link-dev-deps.mjs",
+    "install:profile": "node scripts/install-to-profile.mjs",
+    "search": "node bin/cli.js",
+    "verify": "node test/verify-engines.mjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kaiexi/dsh-browser-search.git"
+  },
+  "bugs": {
+    "url": "https://github.com/kaiexi/dsh-browser-search/issues"
+  },
+  "homepage": "https://github.com/kaiexi/dsh-browser-search#readme"
+}

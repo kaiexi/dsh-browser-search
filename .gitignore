@@ -1,0 +1,16 @@
+# Dev-only module shim extracted from the local DSH install.
+# See scripts/link-dev-deps.mjs — it must never be committed or published.
+node_modules/
+
+# npm pack output
+*.tgz
+
+# Runtime state written by the plugin during local runs
+test/.smoke-status.json
+browser-search-brand.json
+
+# Editors / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

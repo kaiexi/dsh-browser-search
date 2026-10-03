@@ -1,0 +1,9 @@
+# Keep the repository LF-only so Windows checkouts do not produce CRLF diffs.
+* text=auto eol=lf
+
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.tgz binary
